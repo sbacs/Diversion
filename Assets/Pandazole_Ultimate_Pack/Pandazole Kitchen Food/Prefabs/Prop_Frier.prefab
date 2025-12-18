@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 1919572545826736863}
   - component: {fileID: 7397121444431386103}
   - component: {fileID: 5929082294941863527}
+  - component: {fileID: 5139931348110645403}
+  - component: {fileID: 3511793907755695362}
   m_Layer: 0
   m_Name: Prop_Frier_p03
   m_TagString: Untagged
@@ -90,6 +92,49 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &5139931348110645403
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2776371998793264749}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -7349804031203401791, guid: 1de4648974aec0b408aacb9f0f50839a, type: 3}
+--- !u!65 &3511793907755695362
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2776371998793264749}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.20649052, y: 0.20055121, z: 0.5582007}
+  m_Center: {x: -0.000010382384, y: -0.064343184, z: 0.27660006}
 --- !u!1 &3366680795982149572
 GameObject:
   m_ObjectHideFlags: 0
@@ -101,6 +146,8 @@ GameObject:
   - component: {fileID: 4648406511950137351}
   - component: {fileID: 2766347300013152386}
   - component: {fileID: 2509870789636897210}
+  - component: {fileID: 5162994721349152686}
+  - component: {fileID: 2524276283628627724}
   m_Layer: 0
   m_Name: Prop_Frier_p02
   m_TagString: Untagged
@@ -180,6 +227,49 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &5162994721349152686
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3366680795982149572}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -3562651722928030359, guid: 1de4648974aec0b408aacb9f0f50839a, type: 3}
+--- !u!65 &2524276283628627724
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3366680795982149572}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.20649052, y: 0.20055121, z: 0.5582007}
+  m_Center: {x: -0.000012081116, y: -0.064343184, z: 0.27660006}
 --- !u!1 &3596768669888703369
 GameObject:
   m_ObjectHideFlags: 0
@@ -191,6 +281,7 @@ GameObject:
   - component: {fileID: 2776161357637404532}
   - component: {fileID: 3896247705382242083}
   - component: {fileID: 6929783481115682586}
+  - component: {fileID: 2231571496429394491}
   m_Layer: 0
   m_Name: Prop_Frier_p04
   m_TagString: Untagged
@@ -270,6 +361,27 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &2231571496429394491
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3596768669888703369}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.094892316, y: 0.09489238, z: 0.04647782}
+  m_Center: {x: 0.0000017881393, y: 0, z: 0.023239983}
 --- !u!1 &5716649975524417073
 GameObject:
   m_ObjectHideFlags: 0
@@ -281,12 +393,11 @@ GameObject:
   - component: {fileID: 4908446894387135627}
   - component: {fileID: 8336609193953823534}
   - component: {fileID: 6076871769234309092}
-  - component: {fileID: 2712115251489921090}
-  - component: {fileID: 4783119804075846082}
-  - component: {fileID: 6084136482832044570}
+  - component: {fileID: 5933990016516790985}
+  - component: {fileID: 8378618929411469376}
   m_Layer: 0
   m_Name: Prop_Frier
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -366,8 +477,8 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &2712115251489921090
-BoxCollider:
+--- !u!64 &5933990016516790985
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -384,31 +495,11 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.57, y: 0.9, z: 0.7}
-  m_Center: {x: 0, y: 0.5, z: -0.08}
---- !u!65 &4783119804075846082
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5716649975524417073}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.43, y: 0.13000011, z: 0.36}
-  m_Center: {x: 0.01, y: 1.05, z: -0.016450599}
---- !u!114 &6084136482832044570
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 422018040421801509, guid: 1de4648974aec0b408aacb9f0f50839a, type: 3}
+--- !u!114 &8378618929411469376
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -417,6 +508,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 5716649975524417073}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7bded29fa3fd2acf9d7150369ae857a, type: 3}
+  m_Script: {fileID: 11500000, guid: e78d2d50642be750c8edb5624d49b8d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Fryer
+  stepType: 0
+  canCook: 0
+  knobTransform: {fileID: 2776161357637404532}
+  leftGrill: {fileID: 4648406511950137351}
+  rightGrill: {fileID: 1919572545826736863}
+  openAngle: 90
+  openSpeed: 2

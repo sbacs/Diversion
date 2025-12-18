@@ -191,8 +191,8 @@ GameObject:
   - component: {fileID: 3976062412673591142}
   - component: {fileID: 36613906960885955}
   - component: {fileID: 2839206678504594441}
-  - component: {fileID: 3651966197742019746}
   - component: {fileID: 4274636252877823324}
+  - component: {fileID: 6295685082512705541}
   m_Layer: 0
   m_Name: Prop_Stove
   m_TagString: Untagged
@@ -278,27 +278,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &3651966197742019746
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4352200305128078812}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.1981896, y: 0.71, z: 0.766966}
-  m_Center: {x: -0.00000011920929, y: 0.67541134, z: -0.016517296}
 --- !u!65 &4274636252877823324
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -318,8 +297,30 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.1981896, y: 0.12, z: 0.766966}
-  m_Center: {x: -0.00000011920929, y: 1.1, z: -0.016517296}
+  m_Size: {x: 1.1981896, y: 0.04, z: 0.766966}
+  m_Center: {x: -0.00000011920929, y: 1.05, z: -0.016517296}
+--- !u!64 &6295685082512705541
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4352200305128078812}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -8815812723989507458, guid: e3bdfe6ad12e11446949ff5aa3cbc600, type: 3}
 --- !u!1 &4814346929221450670
 GameObject:
   m_ObjectHideFlags: 0
