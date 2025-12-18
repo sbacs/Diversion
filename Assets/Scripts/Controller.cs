@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class FPSController : MonoBehaviour
+public class Controller : MonoBehaviour
 {
     private PlayerControls controls;
     public Rigidbody rb;
@@ -21,6 +21,8 @@ public class FPSController : MonoBehaviour
     public Transform cameraTransform;
     public float lookSensitivity = 2f;
     private float xRotation = 0f;
+    private float yRotation = 0f;
+    private Vector2 lookInput;
 
     [Header("Interaction")]
     private GameObject heldObject;
@@ -29,7 +31,10 @@ public class FPSController : MonoBehaviour
     public float holdSmoothSpeed = 10f;
     private Vector3 holdVelocity;
 
-    private Vector2 lookInput;
+    [Header("Highlight")]
+    public Material highlightMaterial;
+    private GameObject highlightedOBJ;
+    private Material[] highlightedOriginalMaterials;
 
     private void Awake()
     {
@@ -49,15 +54,12 @@ public class FPSController : MonoBehaviour
         controls.Player.Look.canceled += ctx => lookInput = Vector2.zero;
 
         controls.Player.Grab.performed += ctx => Grab();
-        
         controls.Player.Interact.performed += ctx => Interact();
-
-        controls.Player.Throw.performed += ctx => handleThrow();
+        controls.Player.Throw.performed += ctx => Throw();
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
-
 
     private void OnDisable()
     {
@@ -66,65 +68,77 @@ public class FPSController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Player movement
-        Vector3 forward = cameraTransform.forward;
-        Vector3 right = cameraTransform.right;
-        forward.y = 0;
-        right.y = 0;
-        Vector3 movement = (forward * moveInput.y + right * moveInput.x) * speed * Time.fixedDeltaTime;
+        // Movement (based on camera forward/right projected on XZ)
+        Vector3 forward = transform.forward;
+        Vector3 right = transform.right;
+        forward.y = 0f;
+        right.y = 0f;
+
+        Vector3 movement =
+            (forward.normalized * moveInput.y + right.normalized * moveInput.x).normalized
+            * speed * Time.fixedDeltaTime;
+
         rb.MovePosition(rb.position + movement);
 
-        bool isGrounded = Physics.Raycast(groundCheck.position, Vector3.down, groundCheckDistance, groundLayer);
+        // Yaw rotation on Rigidbody (prevents collision torque spin)
+        yRotation += lookInput.x * lookSensitivity;
+        rb.MoveRotation(Quaternion.Euler(0f, yRotation, 0f));
+
+        // Jump
+        bool isGrounded = Physics.Raycast(
+            groundCheck.position,
+            Vector3.down,
+            groundCheckDistance,
+            groundLayer
+        );
+
         if (jumpPressed && isGrounded)
             rb.AddForce(Vector3.up * jumpStrength, ForceMode.Impulse);
+
         jumpPressed = false;
 
-        // Move held object smoothly with Lerp and calculate velocity
-        if (heldObject != null && heldObjectRb != null)
+        // Held object follow
+        if (heldObjectRb != null)
         {
-            Vector3 targetPosition = cameraTransform.position + cameraTransform.forward;
-            // Calcola la velocità basata sul movimento
-            holdVelocity = (targetPosition - heldObjectRb.position) / 5f / Time.fixedDeltaTime;
-            // Lerp per smooth follow
-            heldObjectRb.position = Vector3.Lerp(heldObjectRb.position, targetPosition, holdSmoothSpeed * Time.fixedDeltaTime);
-        }
-    }
+            Vector3 targetPosition = cameraTransform.position + cameraTransform.forward * holdDistance;
 
-    private void Interact()
-    {
-        RaycastHit hit;
+            holdVelocity = (targetPosition - heldObjectRb.position) / Time.fixedDeltaTime;
 
-        if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out hit, 200f))
-        {
-            if (hit.collider.TryGetComponent<Iinteractable>(out var interactable))
-            {
-                interactable.interact();
-            }
+            heldObjectRb.position = Vector3.Lerp(
+                heldObjectRb.position,
+                targetPosition,
+                holdSmoothSpeed * Time.fixedDeltaTime
+            );
         }
     }
 
     private void LateUpdate()
     {
-        // Camera rotation
-        float mouseX = lookInput.x * lookSensitivity;
+        // Pitch rotation on camera only
         float mouseY = lookInput.y * lookSensitivity;
 
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
         cameraTransform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-        transform.Rotate(Vector3.up * mouseX);
+
         Highlight();
     }
 
-
+    private void Interact()
+    {
+        if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out RaycastHit hit, 200f))
+        {
+            if (hit.collider.TryGetComponent<Iinteractable>(out var interactable))
+                interactable.interact();
+        }
+    }
 
     private void Grab()
     {
-        if (heldObject == null)
+        if (heldObjectRb == null)
         {
-            RaycastHit hit;
-            if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out hit, 200f))
+            if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out RaycastHit hit, 200f))
             {
                 heldObject = hit.collider.gameObject;
                 heldObjectRb = hit.collider.attachedRigidbody;
@@ -132,36 +146,39 @@ public class FPSController : MonoBehaviour
                 if (heldObjectRb != null)
                 {
                     heldObjectRb.useGravity = false;
-                    heldObjectRb.linearVelocity = Vector3.zero; // reset velocity
+                    heldObjectRb.velocity = Vector3.zero;
+                    heldObjectRb.angularVelocity = Vector3.zero;
                 }
-                Debug.Log("Picked up: " + heldObject.name);
             }
         }
         else
         {
-            if (heldObjectRb != null)
-            {
-                heldObjectRb.useGravity = true;
-                heldObjectRb.linearVelocity = holdVelocity; // mantieni momentum
-            }
-            Debug.Log("Dropped: " + heldObject.name);
+            heldObjectRb.useGravity = true;
+            heldObjectRb.velocity = holdVelocity;
+
             heldObject = null;
             heldObjectRb = null;
         }
     }
 
-    public Material highlightMaterial;
+    private void Throw()
+    {
+        if (heldObjectRb != null)
+        {
+            heldObjectRb.useGravity = true;
+            heldObjectRb.AddForce(cameraTransform.forward * 15f, ForceMode.Impulse);
 
-    private GameObject highlightedOBJ;
-    private Material[] highlightedOriginalMaterials;
+            heldObject = null;
+            heldObjectRb = null;
+        }
+    }
 
     private void Highlight()
     {
-        RaycastHit hit;
         bool hitSomething = Physics.Raycast(
             cameraTransform.position,
             cameraTransform.forward,
-            out hit,
+            out RaycastHit hit,
             3f
         );
 
@@ -170,12 +187,10 @@ public class FPSController : MonoBehaviour
             ? hit.collider.gameObject
             : null;
 
-        // Se stiamo guardando lo stesso oggetto, non fare nulla
         if (hitObject == highlightedOBJ)
             return;
 
-
-        // Ripristina il precedente
+        // Restore previous
         if (highlightedOBJ != null)
         {
             MeshRenderer prevRenderer = highlightedOBJ.GetComponent<MeshRenderer>();
@@ -186,41 +201,20 @@ public class FPSController : MonoBehaviour
             highlightedOriginalMaterials = null;
         }
 
-        // Evidenzia il nuovo
+        // Apply new
         if (hitObject != null)
         {
             MeshRenderer renderer = hitObject.GetComponent<MeshRenderer>();
-            if (renderer == null)
-                return;
+            if (renderer == null) return;
 
             highlightedOBJ = hitObject;
-
-
-            // Salva materiali originali
             highlightedOriginalMaterials = renderer.sharedMaterials;
 
             Material[] newMats = new Material[highlightedOriginalMaterials.Length + 1];
-            for (int i = 0; i < highlightedOriginalMaterials.Length; i++)
-                newMats[i] = highlightedOriginalMaterials[i];
-
+            highlightedOriginalMaterials.CopyTo(newMats, 0);
             newMats[newMats.Length - 1] = highlightMaterial;
+
             renderer.sharedMaterials = newMats;
         }
     }
-
-
-    private void handleThrow()
-    {
-        if (heldObject)
-        {
-            heldObjectRb.useGravity = true;
-            heldObjectRb.AddForce(cameraTransform.forward * 15f, ForceMode.Impulse);
-
-            heldObject = null;
-            heldObjectRb = null;
-
-        }
-    }
-
-
 }
