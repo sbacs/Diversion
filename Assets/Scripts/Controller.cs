@@ -28,7 +28,7 @@ public class Controller : MonoBehaviour
     private GameObject heldObject;
     private Rigidbody heldObjectRb;
     public float holdDistance = 2f;
-    public float holdSmoothSpeed = 10f;
+    public float holdSmoothSpeed = 1f;
     private Vector3 holdVelocity;
 
     [Header("Highlight")]
@@ -100,7 +100,7 @@ public class Controller : MonoBehaviour
         // Held object follow
         if (heldObjectRb != null)
         {
-            Vector3 targetPosition = cameraTransform.position + cameraTransform.forward * holdDistance;
+            Vector3 targetPosition = cameraTransform.position + cameraTransform.forward * (holdDistance * 1.5f);
 
             holdVelocity = (targetPosition - heldObjectRb.position) / Time.fixedDeltaTime;
 
@@ -146,7 +146,7 @@ public class Controller : MonoBehaviour
                 if (heldObjectRb != null)
                 {
                     heldObjectRb.useGravity = false;
-                    heldObjectRb.velocity = Vector3.zero;
+                    heldObjectRb.linearVelocity = Vector3.zero;
                     heldObjectRb.angularVelocity = Vector3.zero;
                 }
             }
@@ -154,7 +154,7 @@ public class Controller : MonoBehaviour
         else
         {
             heldObjectRb.useGravity = true;
-            heldObjectRb.velocity = holdVelocity;
+            heldObjectRb.linearVelocity = Vector3.zero;
 
             heldObject = null;
             heldObjectRb = null;
