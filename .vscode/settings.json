@@ -67,5 +67,5 @@
         "*.sln": "*.csproj",
         "*.slnx": "*.csproj"
     },
-    "dotnet.defaultSolution": "Diversion.slnx"
+    "dotnet.defaultSolution": "diversion.slnx"
 }
